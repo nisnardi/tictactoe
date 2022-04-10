@@ -1,12 +1,17 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
-const Square = ({ value }) => {
-  return (<View style={styles.square}>
-    <Text style={styles.squareText}>{value}</Text>
-  </View>);
+const Square = () => {
+  const [value, setValue] = useState(null);
+
+  return (<TouchableWithoutFeedback onPress={() => setValue('X')}>
+    <View style={styles.square}>
+      <Text style={styles.squareText}>{value}</Text>
+    </View>
+  </TouchableWithoutFeedback>);
 };
 
 const Board = () => {
