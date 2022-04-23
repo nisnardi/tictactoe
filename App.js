@@ -4,10 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
-const Square = () => {
-  const [value, setValue] = useState(null);
-
-  return (<TouchableWithoutFeedback onPress={() => setValue('X')}>
+const Square = ({ value, onClick }) => {
+  return (<TouchableWithoutFeedback onPress={() => onClick()}>
     <View style={styles.square}>
       <Text style={styles.squareText}>{value}</Text>
     </View>
@@ -16,6 +14,16 @@ const Square = () => {
 
 const Board = () => {
   const status = 'Next Player: X';
+  const [state, setState] = useState(Array(9).fill(null));
+
+  const onClickHandler = (index) => {
+    const squares = state.slice();
+    squares[index] = 'X';
+    setState(squares);
+  }
+
+  console.log(state);
+
   return (
     <View style={styles.container}>
       <View style={styles.titleTextContainer}>
@@ -24,15 +32,15 @@ const Board = () => {
         </Text>
       </View>
       <View style={styles.boardContainer}>
-        <Square value={1} />
-        <Square value={2} />
-        <Square value={3} />
-        <Square value={4} />
-        <Square value={5} />
-        <Square value={6} />
-        <Square value={7} />
-        <Square value={8} />
-        <Square value={9} />
+        <Square value={state[0]} onClick={() => onClickHandler(0)} />
+        <Square value={state[1]} onClick={() => onClickHandler(1)} />
+        <Square value={state[2]} onClick={() => onClickHandler(2)} />
+        <Square value={state[3]} onClick={() => onClickHandler(3)} />
+        <Square value={state[4]} onClick={() => onClickHandler(4)} />
+        <Square value={state[5]} onClick={() => onClickHandler(5)} />
+        <Square value={state[6]} onClick={() => onClickHandler(6)} />
+        <Square value={state[7]} onClick={() => onClickHandler(7)} />
+        <Square value={state[8]} onClick={() => onClickHandler(8)} />
       </View>
     </View>
   );
