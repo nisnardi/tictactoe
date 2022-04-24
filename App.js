@@ -14,15 +14,22 @@ const Square = ({ value, onClick }) => {
 
 const Board = () => {
   const status = 'Next Player: X';
-  const [state, setState] = useState(Array(9).fill(null));
+  const [state, setState] = useState({
+    squares: Array(9).fill(null),
+    xIsNext: true,
+  });
 
   const onClickHandler = (index) => {
-    const squares = state.slice();
-    squares[index] = 'X';
-    setState(squares);
+    const squares = state.squares.slice();
+    squares[index] = state.xIsNext ? 'X' : 'O';
+
+    setState({
+      squares: squares,
+      xIsNext: !state.xIsNext,
+    });
   }
 
-  console.log(state);
+  const { squares } = state;
 
   return (
     <View style={styles.container}>
@@ -32,15 +39,15 @@ const Board = () => {
         </Text>
       </View>
       <View style={styles.boardContainer}>
-        <Square value={state[0]} onClick={() => onClickHandler(0)} />
-        <Square value={state[1]} onClick={() => onClickHandler(1)} />
-        <Square value={state[2]} onClick={() => onClickHandler(2)} />
-        <Square value={state[3]} onClick={() => onClickHandler(3)} />
-        <Square value={state[4]} onClick={() => onClickHandler(4)} />
-        <Square value={state[5]} onClick={() => onClickHandler(5)} />
-        <Square value={state[6]} onClick={() => onClickHandler(6)} />
-        <Square value={state[7]} onClick={() => onClickHandler(7)} />
-        <Square value={state[8]} onClick={() => onClickHandler(8)} />
+        <Square value={squares[0]} onClick={() => onClickHandler(0)} />
+        <Square value={squares[1]} onClick={() => onClickHandler(1)} />
+        <Square value={squares[2]} onClick={() => onClickHandler(2)} />
+        <Square value={squares[3]} onClick={() => onClickHandler(3)} />
+        <Square value={squares[4]} onClick={() => onClickHandler(4)} />
+        <Square value={squares[5]} onClick={() => onClickHandler(5)} />
+        <Square value={squares[6]} onClick={() => onClickHandler(6)} />
+        <Square value={squares[7]} onClick={() => onClickHandler(7)} />
+        <Square value={squares[8]} onClick={() => onClickHandler(8)} />
       </View>
     </View>
   );
